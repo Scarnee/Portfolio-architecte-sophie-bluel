@@ -25,7 +25,7 @@ async function getData() {
         console.log(categId)
         console.log(categName)
         showButtons(categId, categName)
-        filterCategory()
+        filterCategory(data)
     }
     
     catch(error){
@@ -84,9 +84,7 @@ async function showButtons (dataId, dataName){
 /**
  * Fonction filtres
  */
-async function filterCategory(){
-    let response = await fetch(`http://localhost:5678/api/works/`)
-    let data = await response.json()
+async function filterCategory(data){
     document.querySelectorAll(".filters button").forEach(button => {   
         button.addEventListener('click', () => {
             let btnId = button.id
