@@ -6,9 +6,6 @@ function register(){
         e.preventDefault()
         email = document.getElementById("email").value
         pwd = document.getElementById('pwd').value
-        if (email === '' || email === null){
-            alert('Besoin dun email')
-        }
         if (validateEmail(email) == true && validatePassword(pwd) == true ){
             console.log('results sent')
             postResults(email, pwd)
@@ -24,7 +21,7 @@ function validateEmail(email){
         console.log('ok')
         return true
     }else{
-        console.log('ko')
+        console.log('Email non valide')
         return false
     }
 }
@@ -41,17 +38,25 @@ function validatePassword(pwd){
 }
 
 async function postResults (email, pwd){
-    let jsonEmail = JSON.stringify(email)
-    let jsonPwd = JSON.stringify(pwd)
     await fetch('http://localhost:5678/api/users/login',{
         method:"POST",
         headers:{"Content-Type":"application/json"},
-        body:{
-            "email": jsonEmail,
-            "password": jsonPwd
-          }
-    })
-    console.log(body)
+        body:JSON.stringify({
+            email: email,
+            password: pwd
+          })
+    }).then ((response) =>{
+    if (response.status !== 200){
+        console.log("Mauvais IDs")
+        const wrongIds = document.getElementById('wrongIds')
+        wrongIds.classList.remove('hidden')
+    } else {
+        response.json().then(data => {
+            sessionStorage.setItem("token", data.token)
+            window.location.replace("index.html") 
+        })        
+    }
+})
 }
 
 

@@ -46,3 +46,12 @@ main{
     border: none;
     border-radius: 30px;
 }
+
+#wrongIds{
+    color: red;
+    font-weight: 700;
+}
+
+.hidden{
+    display: none;
+}
