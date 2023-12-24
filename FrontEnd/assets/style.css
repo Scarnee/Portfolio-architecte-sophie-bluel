@@ -210,3 +210,47 @@ footer nav ul {
 	background-color: #1D6154;
 }
 
+#editMode{
+	display: flex;
+	background-color: black;
+	color: white;
+	height: 50px;
+	width: 100% ;
+	justify-content: center;
+	align-items: center;
+	gap: 15px;
+}
+
+.hidden{
+    display: none !important;
+}
+
+.active{
+	display: flex;
+}
+
+.mesProjetsModification{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	gap: 50px;
+}
+
+#btnModification{
+	display: flex;
+	flex-direction: row;
+	gap: 15px;
+	font-size: 14px;
+}
+
+#btnLogout{
+	font-family: 'Work Sans';
+	border: none;
+	background-color: transparent;
+	font-size: 1em;
+	font-weight: 200;
+}
+
+#btnLogout#btnLogout:hover {
+	color: #B1663C;
+}

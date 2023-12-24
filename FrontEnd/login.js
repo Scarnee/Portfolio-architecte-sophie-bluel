@@ -52,12 +52,17 @@ async function postResults (email, pwd){
         wrongIds.classList.remove('hidden')
     } else {
         response.json().then(data => {
-            sessionStorage.setItem("token", data.token)
-            window.location.replace("index.html") 
+            window.localStorage.setItem("token", data.token)
+            window.localStorage.setItem("userId", data.userId)
+            window.location.replace("index.html")
+             
         })        
     }
 })
 }
+
+
+    
 
 
 

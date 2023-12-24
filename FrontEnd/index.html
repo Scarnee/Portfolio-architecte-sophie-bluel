@@ -8,17 +8,24 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
+	<script src="https://kit.fontawesome.com/524f1e55d4.js" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="./assets/style.css">
-	<script src="javascript.js" defer></script>
+	<script src="javascript.js" type="module" defer></script>
+	
 </head>
+	
 <body>
+	<div class="hidden" id="editMode">
+		<i class="fa-regular fa-pen-to-square"></i>
+		<p>Mode Edition</p>
+	</div>
 <header>
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
 		<ul>
 			<li>projets</li>
 			<li>contact</li>
-			<li><a href="login.html">login</a></li>
+			<li id="loginLink"><a href="login.html" >login</a></li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -36,7 +43,13 @@
 		</article>
 	</section>
 	<section id="portfolio">
-		<h2>Mes Projets</h2>
+		<div class="mesProjetsModification">
+			<h2>Mes Projets</h2>
+			<div class="hidden" id="btnModification">
+			<i class="fa-regular fa-pen-to-square"></i>
+			<p>modifier</p>
+			</div>
+		</div>
 		
 		<div class="gallery">
 			

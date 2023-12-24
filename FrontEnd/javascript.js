@@ -26,6 +26,9 @@ async function getData() {
         console.log(categName)
         showButtons(categId, categName)
         filterCategory(data)
+        checkUser()
+        logoutUser()
+        
     }
     
     catch(error){
@@ -66,7 +69,8 @@ async function showButtons (dataId, dataName){
     let portfolio = document.getElementById("portfolio")
     let filters = document.createElement("div")
     filters.setAttribute("class","filters")
-    portfolio.insertBefore(filters,portfolio.childNodes[2])
+    filters.setAttribute("id","filters")
+    portfolio.insertBefore(filters,portfolio.childNodes[3])
     let btnTous = document.createElement("button")
     btnTous.innerText = "Tous"
     btnTous.id = 0
@@ -112,3 +116,47 @@ async function filterCategory(data){
 document.addEventListener('DOMContentLoaded',()=>{
     getData()
 })
+
+/**
+ * Verification UserId
+ */
+
+/*function checkUser(){
+    const userId = window.localStorage.getItem(userId)
+    console.log(userId)
+    if(userId === 1){
+        const editMode = document.getElementById('editMode')
+        editMode.classList.remove('hidden')
+    }
+}*/
+
+async function checkUser(){
+        const editMode = document.getElementById('editMode')
+        const filters = document.getElementById('filters')
+        const userId = window.localStorage.getItem('userId')
+        const loginLink = document.getElementById('loginLink')
+        const btnModification = document.getElementById('btnModification')
+        console.log(userId)
+        if(userId == 1){
+            btnModification.classList.remove('hidden')
+            filters.classList.add('hidden')
+            editMode.classList.remove('hidden')
+            loginLink.innerHTML = '<button id="btnLogout">logout</button>'
+            
+        } else {
+            console.log('non')
+        }
+    }
+
+async function logoutUser (){
+    const userId = window.localStorage.getItem('userId')
+    const logoutBtn = document.getElementById('loginLink')
+    logoutBtn.addEventListener('click', () => {
+        if(userId == 1){
+        window.localStorage.removeItem('userId')
+        window.localStorage.removeItem('token')
+        window.location.replace('index.html')
+    }
+    })
+    
+}
