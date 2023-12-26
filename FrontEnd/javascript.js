@@ -28,6 +28,7 @@ async function getData() {
         filterCategory(data)
         checkUser()
         logoutUser()
+        openModal()
         
     }
     
@@ -44,6 +45,7 @@ async function getData() {
  */
 async function showImages (data){
     for(const i of data){
+        // Ajout sur page d'acceuil //
         let gallery = document.querySelector(".gallery")
         let figure = document.createElement("figure")
         let img = document.createElement("img")
@@ -57,6 +59,13 @@ async function showImages (data){
         gallery.appendChild(figure)
         figure.appendChild(img)
         figure.appendChild(figcaption)
+
+        // Ajout sur modal //
+
+        //const modalContent = document.getElementById('modalContent')
+        //modalContent.appendChild(img)
+
+
     }
 }
 
@@ -117,19 +126,10 @@ document.addEventListener('DOMContentLoaded',()=>{
     getData()
 })
 
+
 /**
- * Verification UserId
+ * Fonction pour check si l'utilisateur est enregistrer et faire apparaitre differents boutons
  */
-
-/*function checkUser(){
-    const userId = window.localStorage.getItem(userId)
-    console.log(userId)
-    if(userId === 1){
-        const editMode = document.getElementById('editMode')
-        editMode.classList.remove('hidden')
-    }
-}*/
-
 async function checkUser(){
         const editMode = document.getElementById('editMode')
         const filters = document.getElementById('filters')
@@ -147,7 +147,9 @@ async function checkUser(){
             console.log('non')
         }
     }
-
+/**
+ * Fonction pour logout l'utilisateur
+ */
 async function logoutUser (){
     const userId = window.localStorage.getItem('userId')
     const logoutBtn = document.getElementById('loginLink')
@@ -159,4 +161,26 @@ async function logoutUser (){
     }
     })
     
+}
+
+
+/**
+ * Fonction ouverture et fermeture de la modale
+ */
+
+async function openModal (){
+    const userId = window.localStorage.getItem('userId')
+    const btnModif = document.getElementById('btnModification')
+    const modalPopup = document.getElementById('modalBackground')
+    btnModif.addEventListener('click', () => {
+        if(userId == 1){
+            console.log('ok')
+            modalPopup.classList.remove('hidden')
+        }
+    })
+    modalPopup.addEventListener('click', (event) => {
+        if (event.target === modalPopup){
+            modalPopup.classList.add('hidden')
+        }
+    })
 }
