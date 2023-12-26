@@ -276,18 +276,37 @@ footer nav ul {
 
 .modal{
 	display: flex;
+	gap: 20px;
 	flex-direction: column;
 	background-color: #ffffff;
 	position: absolute;
 	top: 25%;
-	left: 33%;
-	right: 33%;
+	left: 25%;
+	width: 50%;
 	border: 1px solid black;
 	border-radius: 5px;
 	align-items: center;
+	padding-top: 50px;
+	padding-bottom: 50px;
 }
 
 .modal p{
 	font-size: 26px;
 	align-items: center;
+}
+
+.modalGallery{
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	gap: 10px;
+}
+
+.modalGallery figure{
+	height: 120px;
+	
+}
+
+.modalGallery img{
+	max-height: 120px;
+	object-fit: cover;
 }

@@ -29,6 +29,7 @@ async function getData() {
         checkUser()
         logoutUser()
         openModal()
+        showImagesModal(data)
         
     }
     
@@ -60,10 +61,7 @@ async function showImages (data){
         figure.appendChild(img)
         figure.appendChild(figcaption)
 
-        // Ajout sur modal //
 
-        //const modalContent = document.getElementById('modalContent')
-        //modalContent.appendChild(img)
 
 
     }
@@ -184,3 +182,20 @@ async function openModal (){
         }
     })
 }
+
+async function showImagesModal (data){
+    for(const i of data){
+
+        let modalGallery = document.getElementById('modalGallery')
+        let figure = document.createElement("figure")
+        let img = document.createElement("img")
+        
+        img.src = i.imageUrl
+        img.alt = i.title
+        figure.setAttribute('class',i.category.name)
+
+        modalGallery.appendChild(figure)
+        figure.appendChild(img)
+
+} 
+} 
