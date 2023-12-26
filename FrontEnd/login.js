@@ -38,14 +38,18 @@ function validatePassword(pwd){
 }
 
 async function postResults (email, pwd){
-    await fetch('http://localhost:5678/api/users/login',{
+    try{
+       const response = await fetch('http://localhost:5678/api/users/login',{
         method:"POST",
         headers:{"Content-Type":"application/json"},
         body:JSON.stringify({
             email: email,
             password: pwd
           })
-    }).then ((response) =>{
+    })
+    if(!response.ok){
+        throw new Error ('Une erreur est survenu')
+    }
     if (response.status !== 200){
         console.log("Mauvais IDs")
         const wrongIds = document.getElementById('wrongIds')
@@ -57,8 +61,11 @@ async function postResults (email, pwd){
             window.location.replace("index.html")
              
         })        
+    } 
+    }  
+    catch (error){
+        alert(error)
     }
-})
 }
 
 

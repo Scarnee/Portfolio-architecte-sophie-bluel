@@ -1,3 +1,5 @@
+
+
 /**
  * Recuperation des donnees sur l'API
  */
@@ -16,10 +18,10 @@ async function getData() {
         // Mise en tableau Categories Id et Noms
         let categId=[]
         let categName=[]
-        for (let i of data){
-            if(!categId.includes(i.category.id)){
-                categId.push(i.category.id)
-                categName.push(i.category.name) 
+        for (const elem of data){
+            if(!categId.includes(elem.category.id)){
+                categId.push(elem.category.id)
+                categName.push(elem.category.name) 
             }     
         }
         console.log(categId)
@@ -44,7 +46,8 @@ async function getData() {
  * Fonction Affichage des images et textes
  * @param {Array} data 
  */
-async function showImages (data){
+
+function showImages (data){
     for(const i of data){
         // Ajout sur page d'acceuil //
         let gallery = document.querySelector(".gallery")
@@ -52,10 +55,12 @@ async function showImages (data){
         let img = document.createElement("img")
         let figcaption = document.createElement("figcaption")
         
+        
         img.src = i.imageUrl
         img.alt = i.title
         figcaption.innerText = i.title
         figure.setAttribute('class',i.category.name)
+        figure.setAttribute('id',i.id)
 
         gallery.appendChild(figure)
         figure.appendChild(img)
@@ -72,7 +77,7 @@ async function showImages (data){
  * Ajout des boutons via JS
  * @param {Array} (dataId, dataName)
  */
-async function showButtons (dataId, dataName){
+function showButtons (dataId, dataName){
     let portfolio = document.getElementById("portfolio")
     let filters = document.createElement("div")
     filters.setAttribute("class","filters")
@@ -95,7 +100,7 @@ async function showButtons (dataId, dataName){
 /**
  * Fonction filtres
  */
-async function filterCategory(data){
+function filterCategory(data){
     document.querySelectorAll(".filters button").forEach(button => {   
         button.addEventListener('click', () => {
             let btnId = button.id
@@ -128,7 +133,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 /**
  * Fonction pour check si l'utilisateur est enregistrer et faire apparaitre differents boutons
  */
-async function checkUser(){
+function checkUser(){
         const editMode = document.getElementById('editMode')
         const filters = document.getElementById('filters')
         const userId = window.localStorage.getItem('userId')
@@ -162,6 +167,7 @@ async function logoutUser (){
 }
 
 
+
 /**
  * Fonction ouverture et fermeture de la modale
  */
@@ -170,32 +176,108 @@ async function openModal (){
     const userId = window.localStorage.getItem('userId')
     const btnModif = document.getElementById('btnModification')
     const modalPopup = document.getElementById('modalBackground')
+    const btnFermeture = document.getElementById('btnFermeture')
     btnModif.addEventListener('click', () => {
         if(userId == 1){
             console.log('ok')
             modalPopup.classList.remove('hidden')
+            deleteProjectStart()
+            addPhoto()
+            retourModal()
         }
     })
-    modalPopup.addEventListener('click', (event) => {
-        if (event.target === modalPopup){
+    btnFermeture.addEventListener('click', () => {
             modalPopup.classList.add('hidden')
-        }
     })
 }
 
+/**
+ * Fonction affichage des images de la modale
+ * @param {Array} data 
+ */
 async function showImagesModal (data){
     for(const i of data){
 
         let modalGallery = document.getElementById('modalGallery')
         let figure = document.createElement("figure")
         let img = document.createElement("img")
+        let trashbin = document.createElement("i")
         
+        trashbin.setAttribute('class','fa-solid fa-trash-can')
+        trashbin.setAttribute('id',i.id)
         img.src = i.imageUrl
         img.alt = i.title
-        figure.setAttribute('class',i.category.name)
+        figure.setAttribute('class',i.category.id)
 
         modalGallery.appendChild(figure)
+        figure.appendChild(trashbin)
         figure.appendChild(img)
 
 } 
 } 
+
+/**
+ * Fonction Suppression de projet
+ */
+
+function deleteProjectStart(){
+    const trashbins = document.querySelectorAll('.modalGallery i')
+    trashbins.forEach(elem => {
+        elem.addEventListener('click', () =>{
+            const id = elem.id
+            console.log(id)
+            deleteProjectEnd(id)
+        })
+    })
+   
+}
+
+async function deleteProjectEnd(id){
+    try {   const figureId = document.getElementById(id)
+            const token = window.localStorage.getItem('token')
+            const response = await fetch (`http://localhost:5678/api/works/${id}`,{
+            method:'DELETE',
+            headers:{
+                'Accept': '*/*',
+                'Authorization': 'Bearer ' + token,
+                "Content-Type":"application/json"
+            }
+        })
+        if (response.status !== 200){
+            throw new Error(response.status)
+        } else {
+            console.log(response.status)
+            figureId.classList.add('hidden')
+
+        }
+        
+    }
+    catch(error){
+        alert(error)
+    }
+   
+}
+
+function addPhoto (){
+    const btnAddPhoto = document.getElementById('ajoutPhoto')
+    const modalContent = document.getElementById('modalContent')
+    const modalAjoutPhoto = document.getElementById('modalAjoutPhoto')
+
+    btnAddPhoto.addEventListener('click', () => {
+        modalContent.classList.add('hidden')
+        modalAjoutPhoto.classList.remove('hidden')
+
+    })
+}
+
+function retourModal(){
+    const btnRetour = document.getElementById('btnRetour')
+    const modalContent = document.getElementById('modalContent')
+    const modalAjoutPhoto = document.getElementById('modalAjoutPhoto')
+
+    btnRetour.addEventListener('click', () => {
+        modalContent.classList.remove('hidden')
+        modalAjoutPhoto.classList.add('hidden')
+
+    })
+}
