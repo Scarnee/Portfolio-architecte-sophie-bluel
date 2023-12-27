@@ -47,7 +47,7 @@
 	object-fit: cover;
     display: block;
 }
-#ajoutPhoto{
+#ajoutPhoto, #validerProjet{
 	border: none;
 	padding: 5px 0 5px 0;
 	font-family: 'Syne';
@@ -86,4 +86,60 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    width: 100%;
+}
+
+#formAjoutProjet{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+#formAjoutProjet label{
+    align-self: self-start;
+}
+
+#formAjoutProjet input, #formAjoutProjet select {
+    width: 100%;
+}
+
+.disabled{
+    background-color: grey !important;
+}
+
+#newImage{
+    display: none;
+}
+
+.customFileUpload{
+    display: flex;
+    flex-direction: column;
+    padding: 6px 12px;
+    background-color: #E8F1F6;
+    border-radius: 3px;
+    width: 100%;
+    align-items: center;
+}
+
+.customFileUpload p{
+    font-size: 10px;
+}
+.customFileUpload i{
+    align-self: center !important;
+    color: #b9c5cc;
+    font-size: 75px;
+}
+
+.customFileUpload i:hover{
+    transform: none !important;
+}
+
+.customFileUpload button{
+    font-family: 'Syne';
+    font-size: 14px;
+    color: #306685;
+    background-color: #b9c5cc;
+    border-radius: 5px;
+    box-shadow: none;
 }

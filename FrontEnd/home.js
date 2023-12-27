@@ -27,6 +27,7 @@ async function getData() {
         console.log(categId)
         console.log(categName)
         showButtons(categId, categName)
+        selectListModal(categId, categName)
         filterCategory(data)
         checkUser()
         logoutUser()
@@ -176,7 +177,11 @@ async function openModal (){
     const userId = window.localStorage.getItem('userId')
     const btnModif = document.getElementById('btnModification')
     const modalPopup = document.getElementById('modalBackground')
-    const btnFermeture = document.getElementById('btnFermeture')
+    const btnFermeture1 = document.getElementById('btnFermeture1')
+    const btnFermeture2 = document.getElementById('btnFermeture2')
+    const modalContent = document.getElementById('modalContent')
+    const modalAjoutPhoto = document.getElementById('modalAjoutPhoto')
+    
     btnModif.addEventListener('click', () => {
         if(userId == 1){
             console.log('ok')
@@ -186,9 +191,14 @@ async function openModal (){
             retourModal()
         }
     })
-    btnFermeture.addEventListener('click', () => {
-            modalPopup.classList.add('hidden')
+    btnFermeture1.addEventListener('click', () => {
+        modalPopup.classList.add('hidden')
     })
+    btnFermeture2.addEventListener('click', () => {
+        modalPopup.classList.add('hidden')
+        modalContent.classList.remove('hidden')
+        modalAjoutPhoto.classList.add('hidden')
+})
 }
 
 /**
@@ -217,7 +227,7 @@ async function showImagesModal (data){
 } 
 
 /**
- * Fonction Suppression de projet
+ * Fonction Suppression de projet Debut
  */
 
 function deleteProjectStart(){
@@ -231,6 +241,11 @@ function deleteProjectStart(){
     })
    
 }
+
+/**
+ * Fonction Suppression de projet Fin
+ * @param {Number} id 
+ */
 
 async function deleteProjectEnd(id){
     try {   const figureId = document.getElementById(id)
@@ -257,7 +272,9 @@ async function deleteProjectEnd(id){
     }
    
 }
-
+/**
+ * Fonction avance dans modal pour upload
+ */
 function addPhoto (){
     const btnAddPhoto = document.getElementById('ajoutPhoto')
     const modalContent = document.getElementById('modalContent')
@@ -269,6 +286,9 @@ function addPhoto (){
 
     })
 }
+/**
+ * Fonction Retour Modal
+ */
 
 function retourModal(){
     const btnRetour = document.getElementById('btnRetour')
@@ -280,4 +300,25 @@ function retourModal(){
         modalAjoutPhoto.classList.add('hidden')
 
     })
+}
+
+/**
+ * Fonction creation Liste categorie dans modale
+ * @param {Array} selectId 
+ * @param {Array} selectName 
+ */
+
+
+function selectListModal (selectId, selectName){
+    const categoryList = document.getElementById('categoryList')
+
+    for (let i = 0 ; i < selectId.length ; i++){
+        const option = document.createElement('option')
+        option.innerText = selectName[i]
+        option.value = selectId[i] 
+        console.log(selectId[i])
+        console.log(String(selectName[i]))
+        categoryList.appendChild(option)   
+    }
+
 }

@@ -11,7 +11,6 @@
 	<script src="https://kit.fontawesome.com/524f1e55d4.js" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="./assets/style.css">
 	<link rel="stylesheet" href="./assets/modal.css">
-	
 	<script src="home.js" type="module" defer></script>
 	
 	
@@ -84,7 +83,7 @@
 
 <div class="modalBackground hidden" id="modalBackground">
 	<div class="modal" id="modalContent">
-		<i class="fa-solid fa-xmark" id="btnFermeture"></i>
+		<i class="fa-solid fa-xmark" id="btnFermeture1"></i>
 		<p>Galerie photo</p>
 		<div class="modalGallery" id="modalGallery">
 
@@ -94,10 +93,26 @@
 	<div class=" modal hidden" id="modalAjoutPhoto">
 		<div class="headerModal">
 			<i class="fa-solid fa-arrow-left" id="btnRetour"></i>
-			<i class="fa-solid fa-xmark" id="btnFermeture"></i>
+			<i class="fa-solid fa-xmark" id="btnFermeture2"></i>
 		</div>
-		
 		<p>Ajout Photo</p>
+		<form action="#" method="post" id="formAjoutProjet">
+			<div class="customFileUpload">
+				<i class="fa-regular fa-image"></i>
+				<button><label for="newImage">+ Ajouter Photo</label></button>
+				<br>
+				<p>jpg, png : 4mo max</p>
+			</div>
+			<input type="file" id="newImage" name="newImage">
+			<label for="title">Titre</label>
+			<input type="text" id="title" name="title">
+			<label for="category">Categorie</label>
+			<select id="categoryList" name="category">
+			</select>
+			<button id="validerProjet" class="disabled" disabled>Valider</button>
+		</form>
+		
+		
 
 	</div>
 </div>
