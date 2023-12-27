@@ -334,6 +334,7 @@ function previewImage (){
     const fileInput = document.getElementById('newImage')
     const previewImage = document.getElementById('previewImage')
     const btnAjoutPhoto = document.getElementById('btnAjoutPhoto')
+    const previewImageConteneur = document.getElementById('previewImageConteneur')
 
     fileInput.addEventListener('change', (event) => {
         if (event.target.files.length > 0){
@@ -342,11 +343,34 @@ function previewImage (){
             )
             previewImage.style.display = 'block'
             btnAjoutPhoto.classList.add('hidden')
-            previewImage.classList.remove('hidden')
-            console.log(previewImage.src)
+            previewImageConteneur.classList.remove('hidden')
+            previewImage.classList.add('imageLoaded')
+            deletePreviewImage()
+            validateProject()
+        } else {
+            previewImage.classList.remove('imageLoaded')
         }
     })
 }
+
+/**
+ * Fonction Suppression Preview Image
+ */
+
+function deletePreviewImage(){
+    const deleteImage = document.getElementById('btnSuppressionPreview')
+    const previewImage = document.getElementById('previewImage')
+
+    deleteImage.addEventListener('click', () => {
+        previewImage.src = '#'
+        btnAjoutPhoto.classList.remove('hidden')
+        previewImageConteneur.classList.add('hidden')
+        previewImage.classList.remove('imageLoaded')
+        validateProject()
+    })
+}
+
+
 
 /**
  * Fonction all input fields OK pour Valider Projet
@@ -356,8 +380,9 @@ function validateProject (){
     const validerProjet = document.getElementById('validerProjet')
     const title = document.getElementById('title').value
     const category = document.getElementById('categoryList').value
-    const image = document.getElementById('previewImage').src
-    if (title.length > 0 && category.length >0 && image.length > 0){
+    const image = document.getElementById('previewImage')
+
+    if (title.length > 0 && category.length >0 && image.classList.contains('imageLoaded')){
         validerProjet.disabled = false
         validerProjet.classList.remove('disabled')
     } else {
