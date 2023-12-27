@@ -94,14 +94,11 @@
     flex-direction: column;
     align-items: center;
     gap: 15px;
+    width: 50%;
 }
 
 #formAjoutProjet label{
     align-self: self-start;
-}
-
-#formAjoutProjet input, #formAjoutProjet select {
-    width: 100%;
 }
 
 .disabled{
@@ -112,14 +109,22 @@
     display: none;
 }
 
-.customFileUpload{
+.customFileUpload {
     display: flex;
-    flex-direction: column;
     padding: 6px 12px;
     background-color: #E8F1F6;
     border-radius: 3px;
     width: 100%;
+    height: 169px;
+    justify-content: center;
+}
+
+#btnAjoutPhoto{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
     align-items: center;
+    height: 100%;
 }
 
 .customFileUpload p{
@@ -136,10 +141,26 @@
 }
 
 .customFileUpload button{
-    font-family: 'Syne';
+    font-family: 'Work Sans' ;
     font-size: 14px;
     color: #306685;
     background-color: #b9c5cc;
-    border-radius: 5px;
-    box-shadow: none;
+    border-radius: 50px;
+    height: 36px;
+    padding: 10px 33px;
+    border: none;
+}
+
+#formAjoutProjet #title, #formAjoutProjet #categoryList {
+    width: 100%;
+    border: none;
+    height: 51px;
+    box-shadow: 0px 4px 14px 0px #00000017;
+    background-color: transparent;
+
+}
+
+#formAjoutProjet img{
+    object-fit: cover;
+    height: 169px ;
 }

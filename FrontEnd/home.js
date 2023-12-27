@@ -283,6 +283,8 @@ function addPhoto (){
     btnAddPhoto.addEventListener('click', () => {
         modalContent.classList.add('hidden')
         modalAjoutPhoto.classList.remove('hidden')
+        previewImage()
+        inputListening()
 
     })
 }
@@ -310,15 +312,71 @@ function retourModal(){
 
 
 function selectListModal (selectId, selectName){
-    const categoryList = document.getElementById('categoryList')
+    const categoryListDropdown = document.getElementById('categoryListDropdown')
 
     for (let i = 0 ; i < selectId.length ; i++){
         const option = document.createElement('option')
         option.innerText = selectName[i]
-        option.value = selectId[i] 
+        option.value = selectName[i] 
         console.log(selectId[i])
         console.log(String(selectName[i]))
-        categoryList.appendChild(option)   
+        categoryListDropdown.appendChild(option)   
     }
 
+}
+
+
+/**
+ * Fonction Upload et Preview Image
+ */
+
+function previewImage (){
+    const fileInput = document.getElementById('newImage')
+    const previewImage = document.getElementById('previewImage')
+    const btnAjoutPhoto = document.getElementById('btnAjoutPhoto')
+
+    fileInput.addEventListener('change', (event) => {
+        if (event.target.files.length > 0){
+            previewImage.src = URL.createObjectURL(
+                event.target.files[0]
+            )
+            previewImage.style.display = 'block'
+            btnAjoutPhoto.classList.add('hidden')
+            previewImage.classList.remove('hidden')
+            console.log(previewImage.src)
+        }
+    })
+}
+
+/**
+ * Fonction all input fields OK pour Valider Projet
+ */
+
+function validateProject (){
+    const validerProjet = document.getElementById('validerProjet')
+    const title = document.getElementById('title').value
+    const category = document.getElementById('categoryList').value
+    const image = document.getElementById('previewImage').src
+    if (title.length > 0 && category.length >0 && image.length > 0){
+        validerProjet.disabled = false
+        validerProjet.classList.remove('disabled')
+    } else {
+        validerProjet.disabled = true
+        validerProjet.classList.add('disabled')
+    }
+}
+
+
+/**
+ * Fonction Ecoute Input fields
+ */
+
+function inputListening () {
+    const inputFields = document.querySelectorAll('#formAjoutProjet input')
+    for (let i=0 ; i < inputFields.length ; i++){
+        inputFields[i].addEventListener('input', () => {
+            validateProject()
+        })
+    }
+    
 }

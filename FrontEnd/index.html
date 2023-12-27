@@ -97,18 +97,23 @@
 		</div>
 		<p>Ajout Photo</p>
 		<form action="#" method="post" id="formAjoutProjet">
-			<div class="customFileUpload">
-				<i class="fa-regular fa-image"></i>
-				<button><label for="newImage">+ Ajouter Photo</label></button>
-				<br>
-				<p>jpg, png : 4mo max</p>
+			<div class="customFileUpload" id="customFileUpload">
+				<div id="btnAjoutPhoto">
+					<i class="fa-regular fa-image"></i>
+					<button type="button"><label for="newImage">+ Ajouter Photo</label></button>
+					<br>
+					<p>jpg, png : 4mo max</p>
+				</div>
+				<img id="previewImage" src="#" alt="previewImage" class="hidden">
 			</div>
 			<input type="file" id="newImage" name="newImage">
 			<label for="title">Titre</label>
 			<input type="text" id="title" name="title">
 			<label for="category">Categorie</label>
-			<select id="categoryList" name="category">
-			</select>
+			<input type="search" id="categoryList" name="category" list="categoryListDropdown">
+				<datalist id="categoryListDropdown">
+
+				</datalist>
 			<button id="validerProjet" class="disabled" disabled>Valider</button>
 		</form>
 		
