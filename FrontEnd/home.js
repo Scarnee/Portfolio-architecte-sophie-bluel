@@ -312,15 +312,16 @@ function retourModal(){
 
 
 function selectListModal (selectId, selectName){
-    const categoryListDropdown = document.getElementById('categoryListDropdown')
+    const categoryList = document.getElementById('categoryList')
 
     for (let i = 0 ; i < selectId.length ; i++){
         const option = document.createElement('option')
         option.innerText = selectName[i]
-        option.value = selectName[i] 
+        option.value = selectName[i]
+        option.id = selectId[i]
         console.log(selectId[i])
         console.log(String(selectName[i]))
-        categoryListDropdown.appendChild(option)   
+        categoryList.appendChild(option)   
     }
 
 }
@@ -404,4 +405,51 @@ function inputListening () {
         })
     }
     
+}
+
+
+/**
+ * Fonction ajout projet dans API
+ */
+
+const validerProjet = document.getElementById('validerProjet')
+validerProjet.addEventListener('click',addProject)
+
+async function addProject (event) {
+    event.preventDefault()
+    try{
+
+        const title = document.getElementById('title').value
+        const select = document.getElementById('categoryList')
+        const options = select.options
+        const categoryId = options[options.selectedIndex].id
+        const image = document.getElementById('newImage').files[0]
+        
+        const bodyContent = new FormData ()
+
+        bodyContent.append('image', image)
+        bodyContent.append('title', title)
+        bodyContent.append('category', categoryId)
+        const token = window.localStorage.getItem('token')
+
+
+        console.log(bodyContent)
+        const response = await fetch ('http://localhost:5678/api/works', {
+            method: 'POST',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'accept':'application/json',
+                },
+            body: bodyContent
+        })
+
+        if (!response.ok){
+            throw new Error
+        } else {
+            window.location.replace('index.html')
+        }
+        }
+    catch (error){
+        alert(error)
+    }
 }

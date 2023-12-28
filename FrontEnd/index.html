@@ -96,7 +96,7 @@
 			<i class="fa-solid fa-xmark" id="btnFermeture2"></i>
 		</div>
 		<p>Ajout Photo</p>
-		<form action="#" method="post" id="formAjoutProjet">
+		<form action="/" method="post" id="formAjoutProjet" enctype="multipart/form-data">
 			<div class="customFileUpload" id="customFileUpload">
 				<div id="btnAjoutPhoto">
 					<i class="fa-regular fa-image"></i>
@@ -109,15 +109,13 @@
 					<img  src="#" alt="previewImage" id="previewImage">
 				</div>	
 			</div>
-			<input type="file" id="newImage" name="newImage">
+			<input type="file" id="newImage" name="imageUrl">
 			<label for="title">Titre</label>
 			<input type="text" id="title" name="title">
 			<label for="category">Categorie</label>
-			<input type="search" id="categoryList" name="category" list="categoryListDropdown">
-				<datalist id="categoryListDropdown">
-
-				</datalist>
-			<button id="validerProjet" class="disabled" disabled>Valider</button>
+			<select id="categoryList" name="categoryId">
+			</select>
+			<button type="submit" id="validerProjet" class="disabled" disabled>Valider</button>
 		</form>
 		
 		
