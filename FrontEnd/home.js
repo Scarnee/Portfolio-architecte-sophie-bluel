@@ -10,7 +10,6 @@ async function getData() {
             throw new Error (`Une erreur ${response.status}`)
         }
         let data = await response.json()
-        console.log(data)
         showImages(data)
         
 
@@ -24,14 +23,10 @@ async function getData() {
                 categName.push(elem.category.name) 
             }     
         }
-        console.log(categId)
-        console.log(categName)
         showButtons(categId, categName)
-        selectListModal(categId, categName)
         filterCategory(data)
         checkUser()
-        logoutUser()
-        openModal()
+        getCategories()
         showImagesModal(data)
         
     }
@@ -93,7 +88,7 @@ function showButtons (dataId, dataName){
         filters.appendChild(button)   
         button.id = dataId[i]
         button.innerText = dataName[i]
-        console.log(button.id)         
+              
     }
 }
 
@@ -105,12 +100,10 @@ function filterCategory(data){
     document.querySelectorAll(".filters button").forEach(button => {   
         button.addEventListener('click', () => {
             let btnId = button.id
-            console.log(btnId)
             if (Number(btnId) != 0){
                const filteredFigures = data.filter(function(data) {
                 return data.categoryId === Number(btnId)
         })
-            console.log(filteredFigures)
             document.querySelector(".gallery").innerHTML=''
             showImages(filteredFigures)
         } else {
@@ -134,21 +127,22 @@ document.addEventListener('DOMContentLoaded',()=>{
 /**
  * Fonction pour check si l'utilisateur est enregistrer et faire apparaitre differents boutons
  */
+
 function checkUser(){
         const editMode = document.getElementById('editMode')
         const filters = document.getElementById('filters')
         const userId = window.localStorage.getItem('userId')
         const loginLink = document.getElementById('loginLink')
         const btnModification = document.getElementById('btnModification')
-        console.log(userId)
         if(userId == 1){
             btnModification.classList.remove('hidden')
             filters.classList.add('hidden')
             editMode.classList.remove('hidden')
             loginLink.innerHTML = '<button id="btnLogout">logout</button>'
-            
+            logoutUser()
+            openModal()
         } else {
-            console.log('non')
+
         }
     }
 /**
@@ -184,7 +178,6 @@ async function openModal (){
     
     btnModif.addEventListener('click', () => {
         if(userId == 1){
-            console.log('ok')
             modalPopup.classList.remove('hidden')
             addPhoto()
             retourModal()
@@ -232,11 +225,9 @@ async function showImagesModal (data){
 
 function deleteListening () {
         const trashbins = document.querySelectorAll('.modalGallery i')
-        console.log(trashbins)
         trashbins.forEach(elem => {
         elem.addEventListener('click', () =>{
             const id = elem.id
-            console.log(id)
             deleteProject(id)
             })
         })
@@ -305,6 +296,31 @@ function retourModal(){
 
     })
 }
+/**
+ * Recuperation des categories dans l'API
+ */
+async function getCategories(){
+    try{let response = await fetch(`http://localhost:5678/api/categories/`)
+    if (!response.ok){
+        throw new Error (`Une erreur ${response.status}`)
+    } else {
+        let categoriesData = await response.json()
+        let categId=[]
+        let categName=[]
+        for (const elem of categoriesData){
+            if(!categId.includes(elem.id)){
+                categId.push(elem.id)
+                categName.push(elem.name) 
+            }     
+        }
+        selectListModal(categId, categName)
+    }
+
+    }
+    catch(error){
+        alert(error)
+    }
+}
 
 /**
  * Fonction creation Liste categorie dans modale
@@ -321,8 +337,6 @@ function selectListModal (selectId, selectName){
         option.innerText = selectName[i]
         option.value = selectName[i]
         option.id = selectId[i]
-        console.log(selectId[i])
-        console.log(String(selectName[i]))
         categoryList.appendChild(option)   
     }
 
@@ -434,8 +448,6 @@ async function addProject (event) {
         bodyContent.append('category', categoryId)
         const token = window.localStorage.getItem('token')
 
-
-        console.log(bodyContent)
         const response = await fetch ('http://localhost:5678/api/works', {
             method: 'POST',
             headers: {

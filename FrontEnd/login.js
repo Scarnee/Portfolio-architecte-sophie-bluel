@@ -7,10 +7,8 @@ function register(){
         email = document.getElementById("email").value
         pwd = document.getElementById('pwd').value
         if (validateEmail(email) == true && validatePassword(pwd) == true ){
-            console.log('results sent')
             postResults(email, pwd)
         } else {
-            console.log("pas d'envoi")
         }
     })
 }
@@ -18,20 +16,16 @@ function register(){
 function validateEmail(email){
     const emailRegex = new RegExp("[a-z0-9._-]+@[a-z0-9._-]+\.[a-z0-9._-]+")
     if (emailRegex.test(email)){
-        console.log('ok')
         return true
     }else{
-        console.log('Email non valide')
         return false
     }
 }
 
 function validatePassword(pwd){
     if (pwd.length > 2){
-        console.log('ok')
         return true
     } else {
-        console.log('ko')
         return false
     }
     
@@ -51,7 +45,6 @@ async function postResults (email, pwd){
         throw new Error ('Une erreur est survenu')
     }
     if (response.status !== 200){
-        console.log("Mauvais IDs")
         const wrongIds = document.getElementById('wrongIds')
         wrongIds.classList.remove('hidden')
     } else {
