@@ -1,4 +1,6 @@
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// RECUPERATION DE DONNEES DANS L'API / FONCTION PRINCIPALE /////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
  * Recuperation des donnees sur l'API
@@ -30,44 +32,15 @@ async function getData() {
         showImagesModal(data)
         
     }
-    
     catch(error){
         alert (error)
 
     }
-    
 }
 
-/**
- * Fonction Affichage des images et textes
- * @param {Array} data 
- */
-
-function showImages (data){
-    for(const i of data){
-        // Ajout sur page d'acceuil //
-        let gallery = document.querySelector(".gallery")
-        let figure = document.createElement("figure")
-        let img = document.createElement("img")
-        let figcaption = document.createElement("figcaption")
-        
-        
-        img.src = i.imageUrl
-        img.alt = i.title
-        figcaption.innerText = i.title
-        figure.setAttribute('class',i.category.name)
-        figure.setAttribute('id','gallery'+i.id)
-
-        gallery.appendChild(figure)
-        figure.appendChild(img)
-        figure.appendChild(figcaption)
-
-
-
-
-    }
-}
-
+///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// CREATIONS DES BOUTONS DE FILTRES + FILTRAGE /////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
  * Ajout des boutons via JS
@@ -92,7 +65,6 @@ function showButtons (dataId, dataName){
     }
 }
 
-
 /**
  * Fonction filtres
  */
@@ -116,13 +88,9 @@ function filterCategory(data){
 })
 }
 
-
-
-
-document.addEventListener('DOMContentLoaded',()=>{
-    getData()
-})
-
+/////////////////////////////////////////////////////////////////////////
+///////////////////////// FONCTIONS POUR ADMINS /////////////////////////
+/////////////////////////////////////////////////////////////////////////
 
 /**
  * Fonction pour check si l'utilisateur est enregistrer et faire apparaitre differents boutons
@@ -145,6 +113,7 @@ function checkUser(){
 
         }
     }
+
 /**
  * Fonction pour logout l'utilisateur
  */
@@ -157,17 +126,18 @@ async function logoutUser (){
         window.localStorage.removeItem('token')
         window.location.replace('index.html')
     }
-    })
-    
+    })   
 }
 
-
+///////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// OUVERTURE ET FERMETURE DE LA MODALE /////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////
 
 /**
  * Fonction ouverture et fermeture de la modale
  */
 
-async function openModal (){
+function openModal (){
     const userId = window.localStorage.getItem('userId')
     const btnModif = document.getElementById('btnModification')
     const modalPopup = document.getElementById('modalBackground')
@@ -192,6 +162,36 @@ async function openModal (){
         modalContent.classList.remove('hidden')
         modalAjoutPhoto.classList.add('hidden')
 })
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// AFFICHAGE DES IMAGES DANS LA GALERIE ET LA MODALE /////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * Fonction Affichage des images et textes
+ * @param {Array} data 
+ */
+
+function showImages (data){
+    for(const i of data){
+        // Ajout sur page d'acceuil //
+        let gallery = document.querySelector(".gallery")
+        let figure = document.createElement("figure")
+        let img = document.createElement("img")
+        let figcaption = document.createElement("figcaption")
+        
+        
+        img.src = i.imageUrl
+        img.alt = i.title
+        figcaption.innerText = i.title
+        figure.setAttribute('class',i.category.name)
+        figure.setAttribute('id','gallery'+i.id)
+
+        gallery.appendChild(figure)
+        figure.appendChild(img)
+        figure.appendChild(figcaption)
+    }
 }
 
 /**
@@ -219,6 +219,11 @@ async function showImagesModal (data){
 
 } 
 } 
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// FONCTIONS POUR SUPPRESSION DES PROJETS DANS LA MODALE /////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 /**
  * Fonction Ecoute Suppression Projet
  */
@@ -265,8 +270,13 @@ async function deleteProject(id){
     }
    
 }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// FONCTIONS D'AVANCE ET DE RETOUR DANS LA MODALE /////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
 /**
- * Fonction avance dans modal pour upload
+ * Fonction Avance Modale
  */
 function addPhoto (){
     const btnAddPhoto = document.getElementById('ajoutPhoto')
@@ -281,8 +291,9 @@ function addPhoto (){
 
     })
 }
+
 /**
- * Fonction Retour Modal
+ * Fonction Retour Modale
  */
 
 function retourModal(){
@@ -296,6 +307,11 @@ function retourModal(){
 
     })
 }
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// CREATION DE LA LISTE DEROULANTE DE CHOIX DE CATEGORIES DANS LA MODALE /////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 /**
  * Recuperation des categories dans l'API
  */
@@ -342,6 +358,9 @@ function selectListModal (selectId, selectName){
 
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// UPLOAD & PREVIEW IMAGE DANS LA MODALE + SUPPRESSION /////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
  * Fonction Upload et Preview Image
@@ -387,30 +406,12 @@ function deletePreviewImage(){
     })
 }
 
-
-
-/**
- * Fonction all input fields OK pour Valider Projet
- */
-
-function validateProject (){
-    const validerProjet = document.getElementById('validerProjet')
-    const title = document.getElementById('title').value
-    const category = document.getElementById('categoryList').value
-    const image = document.getElementById('previewImage')
-
-    if (title.length > 0 && category.length >0 && image.classList.contains('imageLoaded')){
-        validerProjet.disabled = false
-        validerProjet.classList.remove('disabled')
-    } else {
-        validerProjet.disabled = true
-        validerProjet.classList.add('disabled')
-    }
-}
-
+///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// VALIDATION DU PROJET EN FONCTION DES CHAMPS /////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
- * Fonction Ecoute Input fields
+ * Fonction Ecoute Input fields pour bouton validation
  */
 
 function inputListening () {
@@ -423,6 +424,28 @@ function inputListening () {
     
 }
 
+/**
+ * Fonction all input fields OK pour Valider Projet
+ */
+
+function validateProject (){
+    const validerProjet = document.getElementById('validerProjet')
+    const title = document.getElementById('title').value
+    const category = document.getElementById('categoryList').value
+    const image = document.getElementById('previewImage')
+
+    if (title.length > 0 && category.length > 0 && image.classList.contains('imageLoaded')){
+        validerProjet.disabled = false
+        validerProjet.classList.remove('disabled')
+    } else {
+        validerProjet.disabled = true
+        validerProjet.classList.add('disabled')
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////////
+///////////////////////// AJOUT DU PROJET DANS L'API /////////////////////////
+//////////////////////////////////////////////////////////////////////////////
 
 /**
  * Fonction ajout projet dans API
@@ -467,3 +490,14 @@ async function addProject (event) {
         alert(error)
     }
 }
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// FONCTION D'ECOUTE DE DOM LOADED POUR INITIALISATION DE LA PAGE /////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+document.addEventListener('DOMContentLoaded',()=>{
+    getData()
+})

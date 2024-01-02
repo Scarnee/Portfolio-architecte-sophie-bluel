@@ -79,9 +79,11 @@
 		</ul>
 	</nav>
 </footer>
+
 <!-- Modal Popup -->
 
 <div class="modalBackground hidden" id="modalBackground">
+	<!-- Premiere page Modale / Galerie -->
 	<div class="modal" id="modalContent">
 		<i class="fa-solid fa-xmark" id="btnFermeture1"></i>
 		<p>Galerie photo</p>
@@ -90,12 +92,14 @@
 		</div>
 		<button id="ajoutPhoto">Ajouter une photo</button>
 	</div>
+	<!-- Seconde page Modale / Ajout Projet -->
 	<div class=" modal hidden" id="modalAjoutPhoto">
 		<div class="headerModal">
 			<i class="fa-solid fa-arrow-left" id="btnRetour"></i>
 			<i class="fa-solid fa-xmark" id="btnFermeture2"></i>
 		</div>
 		<p>Ajout Photo</p>
+		<!-- Formulaire pour ajout de projet -->
 		<form action="/" method="post" id="formAjoutProjet" enctype="multipart/form-data">
 			<div class="customFileUpload" id="customFileUpload">
 				<div id="btnAjoutPhoto">
