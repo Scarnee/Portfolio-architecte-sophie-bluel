@@ -61,7 +61,7 @@ function showImages (data){
         img.alt = i.title
         figcaption.innerText = i.title
         figure.setAttribute('class',i.category.name)
-        figure.setAttribute('id',i.id)
+        figure.setAttribute('id','gallery'+i.id)
 
         gallery.appendChild(figure)
         figure.appendChild(img)
@@ -186,9 +186,9 @@ async function openModal (){
         if(userId == 1){
             console.log('ok')
             modalPopup.classList.remove('hidden')
-            deleteProjectStart()
             addPhoto()
             retourModal()
+            deleteListening()
         }
     })
     btnFermeture1.addEventListener('click', () => {
@@ -215,6 +215,7 @@ async function showImagesModal (data){
         
         trashbin.setAttribute('class','fa-solid fa-trash-can')
         trashbin.setAttribute('id',i.id)
+        figure.setAttribute('id','figure'+i.id)
         img.src = i.imageUrl
         img.alt = i.title
         figure.setAttribute('class',i.category.id)
@@ -225,30 +226,30 @@ async function showImagesModal (data){
 
 } 
 } 
-
 /**
- * Fonction Suppression de projet Debut
+ * Fonction Ecoute Suppression Projet
  */
 
-function deleteProjectStart(){
-    const trashbins = document.querySelectorAll('.modalGallery i')
-    trashbins.forEach(elem => {
+function deleteListening () {
+        const trashbins = document.querySelectorAll('.modalGallery i')
+        console.log(trashbins)
+        trashbins.forEach(elem => {
         elem.addEventListener('click', () =>{
             const id = elem.id
             console.log(id)
-            deleteProjectEnd(id)
+            deleteProject(id)
+            })
         })
-    })
-   
 }
 
 /**
- * Fonction Suppression de projet Fin
+ * Fonction Suppression de projet 
  * @param {Number} id 
  */
 
-async function deleteProjectEnd(id){
-    try {   const figureId = document.getElementById(id)
+async function deleteProject(id){
+    try {   const figureId = document.getElementById('figure'+id)
+            const galleryId = document.getElementById('gallery'+id)
             const token = window.localStorage.getItem('token')
             const response = await fetch (`http://localhost:5678/api/works/${id}`,{
             method:'DELETE',
@@ -257,13 +258,14 @@ async function deleteProjectEnd(id){
                 'Authorization': 'Bearer ' + token,
                 "Content-Type":"application/json"
             }
+            
+
         })
-        if (response.status !== 200){
+        if (!response.ok){
             throw new Error(response.status)
         } else {
-            console.log(response.status)
             figureId.classList.add('hidden')
-
+            galleryId.classList.add('hidden')
         }
         
     }

@@ -39,13 +39,14 @@
 .modalGallery figure{
 	height: 120px;
     position: relative;
-	
+	width: 1fr;
 }
 
 .modalGallery img{
 	max-height: 120px;
-	object-fit: cover;
+	object-fit: fill;
     display: block;
+    width: 100%;
 }
 #ajoutPhoto, #validerProjet{
 	border: none;
