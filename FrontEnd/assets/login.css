@@ -1,11 +1,13 @@
-body{
+body {
     margin: 0;
     height: 100%;
 }
-main{
+
+main {
     height: 100%;
 }
-.loginForm{
+
+.loginForm {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -13,7 +15,7 @@ main{
     width: 30%;
 }
 
-.loginPage{
+.loginPage {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -22,36 +24,41 @@ main{
     gap: 20px;
     justify-content: space-between;
 }
-.loginForm label, input{
+
+.loginForm label,
+input {
     width: 100%;
 }
-.loginForm label{
+
+.loginForm label {
     margin: 2em 0 1em 0;
 }
-.loginForm input{
+
+.loginForm input {
     height: 50px;
     font-size: 1.2em;
     box-shadow: 0px 4px 14px 0px #00000017;
     border: none;
 }
 
-
-.loginForm button{
-    font-family: 'Syne';
-    background-color: #1D6154;
+.loginForm button {
+    font-family: "Syne";
+    background-color: #1d6154;
     font-size: 14px;
     font-weight: 700;
     color: white;
-    padding:  10px 40px 10px 40px;
+    padding: 10px 40px 10px 40px;
     border: none;
     border-radius: 30px;
+    margin-top: 50px;
 }
 
-#wrongIds{
+#wrongIds,
+#wrongEmail {
     color: red;
     font-weight: 700;
 }
 
-.hidden{
-    display: none !important;
+.disabled {
+    background-color: grey !important;
 }

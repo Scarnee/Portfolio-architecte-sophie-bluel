@@ -1,80 +1,83 @@
 /**Gestion CSS Modal **/
 
-.modalBackground{
-	display: flex;
-	position: fixed;
-	top: 0px;
-	left: 0px;
-	width: 100%;
-	height: 100%;
-	background-color:rgba(0, 0, 0, 0.5)
+.modalBackground {
+    display: flex;
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
-.modal{
-	display: flex;
-	gap: 20px;
-	flex-direction: column;
-	background-color: #ffffff;
-	position: absolute;
-	top: 25%;
-	left: 25%;
-	width: 50%;
-	border-radius: 10px;
-	align-items: center;
-	padding: 20px 50px 20px 50px;
+.modal {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    background-color: #ffffff;
+    top: 25%;
+    left: 25%;
+    width: 50%;
+    border-radius: 10px;
+    align-items: center;
+    padding: 20px 50px 20px 50px;
 }
 
-.modal p{
-	font-size: 26px;
-	align-items: center;
+.modal p {
+    font-size: 26px;
+    align-items: center;
 }
 
-.modalGallery{
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-	gap: 10px;
-    
+.modalGallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    row-gap: 20px;
+    column-gap: 10px;
+    width: 75%;
 }
 
-.modalGallery figure{
-	height: 120px;
+.modalGallery figure {
+    height: 120px;
     position: relative;
-	width: 1fr;
+    width: 1fr;
 }
 
-.modalGallery img{
-	max-height: 120px;
-	object-fit: cover;
+.modalGallery img {
+    max-height: 120px;
+    object-fit: cover;
     display: block;
     width: 100%;
     height: 100%;
 }
-#ajoutPhoto, #validerProjet{
-	border: none;
-	padding: 5px 0 5px 0;
-	font-family: 'Syne';
-	font-weight: 700;
-	color: white;
-	background-color: #1D6154;
-	margin : 2em auto ;
-	width: 180px;
-	text-align: center;
-	border-radius: 60px ;
+#ajoutPhoto,
+#validerProjet {
+    border: none;
+    padding: 5px 0 5px 0;
+    font-family: "Syne";
+    font-weight: 700;
+    color: white;
+    background-color: #1d6154;
+    margin: 2em auto;
+    width: 180px;
+    text-align: center;
+    border-radius: 60px;
 }
 
-.modal i{
+.modal i {
     margin-right: 5%;
     align-self: end;
-    transition:  .2s ;
+    transition: 0.2s;
     font-size: 18px;
 }
-.modal i:hover{
-    transform: scale(1.2) ;
+.modal i:hover {
+    transform: scale(1.2);
 }
 
-.modalGallery figure i{
+.modalGallery figure i {
     position: absolute;
-    font-size:9px ;
+    font-size: 9px;
     margin: 0;
     right: 5%;
     top: 5%;
@@ -84,14 +87,14 @@
     border-radius: 5px;
 }
 
-.headerModal{
+.headerModal {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
 }
 
-#formAjoutProjet{
+#formAjoutProjet {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -99,29 +102,29 @@
     width: 50%;
 }
 
-#formAjoutProjet label{
+#formAjoutProjet label {
     align-self: self-start;
 }
 
-.disabled{
+.disabled {
     background-color: grey !important;
 }
 
-#newImage{
+#newImage {
     display: none;
 }
 
 .customFileUpload {
     display: flex;
     padding: 6px 12px;
-    background-color: #E8F1F6;
+    background-color: #e8f1f6;
     border-radius: 3px;
     width: 100%;
     height: 169px;
     justify-content: center;
 }
 
-#btnAjoutPhoto{
+#btnAjoutPhoto {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -129,21 +132,21 @@
     height: 100%;
 }
 
-.customFileUpload p{
+.customFileUpload p {
     font-size: 10px;
 }
-.customFileUpload i{
+.customFileUpload i {
     align-self: center !important;
     color: #b9c5cc;
     font-size: 75px;
 }
 
-.customFileUpload i:hover{
+.customFileUpload i:hover {
     transform: none !important;
 }
 
-.customFileUpload button{
-    font-family: 'Work Sans' ;
+.customFileUpload button {
+    font-family: "Work Sans";
     font-size: 14px;
     color: #306685;
     background-color: #b9c5cc;
@@ -153,24 +156,24 @@
     border: none;
 }
 
-#formAjoutProjet #title, #formAjoutProjet #categoryList {
+#formAjoutProjet #title,
+#formAjoutProjet #categoryList {
     width: 100%;
     border: none;
     height: 51px;
     box-shadow: 0px 4px 14px 0px #00000017;
     background-color: transparent;
-
 }
 
-#formAjoutProjet img{
+#formAjoutProjet img {
     object-fit: cover;
-    height: 169px ;
+    height: 169px;
 }
 
-.previewImage i{
+.previewImage i {
     position: absolute;
     display: inline-block;
-    font-size:15px ;
+    font-size: 15px;
     margin: 0;
     top: 5%;
     right: 5%;
@@ -180,11 +183,11 @@
     border-radius: 5px;
 }
 
-.previewImage i:hover{
+.previewImage i:hover {
     background-color: black;
     color: white;
 }
 
-.previewImage{
+.previewImage {
     position: relative;
 }
