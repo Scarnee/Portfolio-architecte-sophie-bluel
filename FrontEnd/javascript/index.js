@@ -64,18 +64,23 @@ function showButtons(dataId, dataName) {
  */
 
 function filterCategory(data) {
+    const figuresGallery = document.querySelectorAll(".gallery figure");
+    console.log(figuresGallery);
     document.querySelectorAll(".filters button").forEach((button) => {
         button.addEventListener("click", () => {
             let btnId = button.id;
-            if (Number(btnId) != 0) {
-                const filteredFigures = data.filter(function (data) {
-                    return data.categoryId === Number(btnId);
-                });
-                document.querySelector(".gallery").innerHTML = "";
-                showImages(filteredFigures);
-            } else {
-                document.querySelector(".gallery").innerHTML = "";
-                showImages(data);
+            for (const figure of figuresGallery) {
+                figure.classList.add("hidden");
+                // btnId = 0 correspond au bouton "Tous"//
+                if (btnId != 0) {
+                    if (figure.classList.contains(btnId)) {
+                        figure.classList.remove("hidden");
+                    } else {
+                        figure.classList.add("hidden");
+                    }
+                } else {
+                    figure.classList.remove("hidden");
+                }
             }
         });
     });
