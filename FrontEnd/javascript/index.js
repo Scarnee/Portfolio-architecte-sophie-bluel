@@ -24,14 +24,18 @@ async function getData() {
             }
         }
         showButtons(categId, categName);
-        filterCategory(data);
+
+        filterCategory();
         checkUser();
         getCategories();
         showImagesModal(data);
+        return data;
     } catch (error) {
         alert(error);
     }
 }
+
+let initialArray = await getData();
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// CREATIONS DES BOUTONS DE FILTRES + FILTRAGE /////////////////////////
@@ -63,20 +67,18 @@ function showButtons(dataId, dataName) {
  * Fonction filtres
  */
 
-function filterCategory(data) {
+function filterCategory() {
     const figuresGallery = document.querySelectorAll(".gallery figure");
-    console.log(figuresGallery);
     document.querySelectorAll(".filters button").forEach((button) => {
         button.addEventListener("click", () => {
             let btnId = button.id;
             for (const figure of figuresGallery) {
-                figure.classList.add("hidden");
                 // btnId = 0 correspond au bouton "Tous"//
                 if (btnId != 0) {
-                    if (figure.classList.contains(btnId)) {
-                        figure.classList.remove("hidden");
-                    } else {
+                    if (!figure.classList.contains(btnId)) {
                         figure.classList.add("hidden");
+                    } else {
+                        figure.classList.remove("hidden");
                     }
                 } else {
                     figure.classList.remove("hidden");
@@ -183,7 +185,7 @@ function showImages(data) {
         img.src = i.imageUrl;
         img.alt = i.title;
         figcaption.innerText = i.title;
-        figure.setAttribute("class", i.category.id);
+        figure.setAttribute("class", i.categoryId);
         figure.setAttribute("id", `gallery_${i.id}`);
 
         gallery.appendChild(figure);
@@ -209,7 +211,7 @@ function showImagesModal(data) {
         figure.setAttribute("id", "figure_" + i.id);
         img.src = i.imageUrl;
         img.alt = i.title;
-        figure.setAttribute("class", i.category.id);
+        figure.setAttribute("class", i.categoryId);
 
         modalGallery.appendChild(figure);
         figure.appendChild(trashbin);
@@ -442,7 +444,7 @@ validerProjet.addEventListener("click", addProject);
 async function addProject(event) {
     event.preventDefault();
     try {
-        const title = document.getElementById("title").value;
+        let title = document.getElementById("title").value;
         const select = document.getElementById("categoryList");
         const options = select.options;
         const categoryId = options[options.selectedIndex].id;
@@ -467,8 +469,35 @@ async function addProject(event) {
         if (!response.ok) {
             throw new Error();
         } else {
-            //showImages(await response.json());
-            window.location.replace("index.html");
+            // Suppression preview
+            const previewImage = document.getElementById("previewImage");
+            previewImage.src = "#";
+            btnAjoutPhoto.classList.remove("hidden");
+            previewImageConteneur.classList.add("hidden");
+            previewImage.classList.remove("imageLoaded");
+
+            // Vide le formulaire
+            const form = document.getElementById("formAjoutProjet");
+            form.reset();
+
+            //Fermeture modale
+            const btnFermetureUpload = document.getElementById("btnFermeture2");
+            btnFermetureUpload.click();
+
+            // Ajout a l'Array initial
+            let newArray = initialArray.slice();
+            let newObject = await response.json();
+            newArray.push(newObject);
+
+            // Ajout dynamique a la gallerie home
+            let gallery = document.querySelector(".gallery");
+            gallery.innerHTML = "";
+            showImages(newArray);
+
+            // Ajout dynamique a la gallerie modale
+            let modalGallery = document.getElementById("modalGallery");
+            modalGallery.innerHTML = "";
+            showImagesModal(newArray);
         }
     } catch (error) {
         alert(error);

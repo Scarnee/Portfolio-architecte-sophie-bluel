@@ -99,7 +99,7 @@
                 </div>
                 <p>Ajout Photo</p>
                 <!-- Formulaire pour ajout de projet -->
-                <form action="/" method="post" id="formAjoutProjet" enctype="multipart/form-data">
+                <form action="/" method="post" id="formAjoutProjet" enctype="multipart/form-data" autocomplete="off">
                     <div class="customFileUpload" id="customFileUpload">
                         <div id="btnAjoutPhoto">
                             <i class="fa-regular fa-image"></i>
@@ -116,7 +116,7 @@
                     </div>
                     <input type="file" id="newImage" name="imageUrl" />
                     <label for="title">Titre</label>
-                    <input type="text" id="title" name="title" />
+                    <input type="text" id="title" name="title" value="" />
                     <label for="category">Categorie</label>
                     <select id="categoryList" name="categoryId"></select>
                     <button type="submit" id="validerProjet" class="disabled" disabled>Valider</button>

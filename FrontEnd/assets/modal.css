@@ -3,8 +3,6 @@
 .modalBackground {
     display: flex;
     position: fixed;
-    align-items: center;
-    justify-content: center;
     top: 0px;
     left: 0px;
     width: 100%;
@@ -17,12 +15,14 @@
     gap: 20px;
     flex-direction: column;
     background-color: #ffffff;
-    top: 25%;
-    left: 25%;
+    margin-top: 5%;
+    margin-left: 25%;
+    margin-bottom: auto;
     width: 50%;
     border-radius: 10px;
     align-items: center;
     padding: 20px 50px 20px 50px;
+    overflow-y: scroll;
 }
 
 .modal p {
@@ -41,7 +41,6 @@
 .modalGallery figure {
     height: 120px;
     position: relative;
-    width: 1fr;
 }
 
 .modalGallery img {
