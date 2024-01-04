@@ -279,8 +279,10 @@ footer nav ul {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 30px;
-    width: 50%;
-    margin-left: 25%;
+
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
 }
 .filters button {
     background-color: transparent;

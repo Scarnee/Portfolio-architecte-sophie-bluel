@@ -1,0 +1,32 @@
+@media (max-width: 450px) {
+    header {
+        flex-direction: column;
+        gap: 20px;
+    }
+    header h1 {
+        align-items: center;
+    }
+    header nav ul {
+        display: grid;
+        width: 100%;
+        grid-template-columns: 1fr 1fr;
+        row-gap: 10px;
+    }
+    nav ul li {
+        text-align: center;
+    }
+    #introduction {
+        flex-direction: column;
+        gap: 10px;
+    }
+    #introduction article {
+        padding: 0px 10px 0px 10px;
+    }
+    .filters {
+        margin-left: 5%;
+        width: 90vw;
+    }
+    .filters button {
+        font-size: 14px;
+    }
+}
