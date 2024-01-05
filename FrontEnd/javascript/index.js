@@ -55,11 +55,11 @@ function showButtons(dataId, dataName) {
     btnTous.innerText = "Tous";
     btnTous.id = 0;
     filters.appendChild(btnTous);
-    for (let i = 0; i < dataId.length; i++) {
+    for (let btn in dataId) {
         let button = document.createElement("button");
         filters.appendChild(button);
-        button.id = dataId[i];
-        button.innerText = dataName[i];
+        button.id = dataId[btn];
+        button.innerText = dataName[btn];
     }
 }
 
@@ -126,6 +126,7 @@ function logoutUser() {
             filters.classList.remove("hidden");
             editMode.classList.add("hidden");
             loginLink.innerHTML = '<a href="login.html">login</a>';
+            filterCategory();
         }
     });
 }
@@ -339,11 +340,11 @@ async function getCategories() {
 function selectListModal(selectId, selectName) {
     const categoryList = document.getElementById("categoryList");
 
-    for (let i = 0; i < selectId.length; i++) {
+    for (let categ in selectId) {
         const option = document.createElement("option");
-        option.innerText = selectName[i];
-        option.value = selectName[i];
-        option.id = selectId[i];
+        option.innerText = selectName[categ];
+        option.value = selectName[categ];
+        option.id = selectId[categ];
         categoryList.appendChild(option);
     }
 }
@@ -404,11 +405,11 @@ function deletePreviewImage() {
 
 function inputListening() {
     const inputFields = document.querySelectorAll("#formAjoutProjet input");
-    for (let i = 0; i < inputFields.length; i++) {
-        inputFields[i].addEventListener("input", () => {
+    inputFields.forEach((elem) => {
+        elem.addEventListener("input", () => {
             validateProject();
         });
-    }
+    });
 }
 
 /**

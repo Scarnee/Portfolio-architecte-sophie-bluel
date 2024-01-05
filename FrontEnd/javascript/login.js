@@ -31,8 +31,9 @@ function validateEmail(email) {
 }
 
 function validatePassword(pwd) {
-    if (pwd.length > 2) {
-        return true;
+    if (pwd.length > 0) {
+        //Peut permettre des regles de verification preliminaire pour mot de passe afin d'activer bouton
+        return true; // Dans notre cas, une regle d'un mot de passe > 0 ; possible de faire quelque chose plus complexe
     } else {
         return false;
     }
@@ -47,8 +48,8 @@ function activateSubmission() {
     const pwd = document.getElementById("pwd");
     const btnConnexion = document.getElementById("btnConnexion");
     const inputFields = document.querySelectorAll("input");
-    for (let fields = 0; fields < inputFields.length; fields++) {
-        inputFields[fields].addEventListener("input", () => {
+    inputFields.forEach((field) => {
+        field.addEventListener("input", () => {
             wrongIds.classList.add("hidden");
             wrongEmail.classList.add("hidden");
             if (email.value.length > 0 && pwd.value.length > 0) {
@@ -59,7 +60,7 @@ function activateSubmission() {
                 btnConnexion.classList.add("disabled");
             }
         });
-    }
+    });
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
