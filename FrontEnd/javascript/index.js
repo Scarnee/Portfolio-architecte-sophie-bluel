@@ -29,13 +29,53 @@ async function getData() {
         checkUser();
         getCategories();
         showImagesModal(data);
-        return data;
     } catch (error) {
         alert(error);
     }
 }
 
-let initialArray = await getData();
+/////////////////////////////////////////////////////////////////////////
+///////////////////////// FONCTIONS POUR ADMINS /////////////////////////
+/////////////////////////////////////////////////////////////////////////
+
+/**
+ * Fonction pour check si l'utilisateur est enregistrer et faire apparaitre differents boutons
+ */
+
+function checkUser() {
+    if (window.localStorage.getItem("userId")) {
+        const editMode = document.getElementById("editMode");
+        const filters = document.getElementById("filters");
+        const loginLink = document.getElementById("loginLink");
+        const btnModification = document.getElementById("btnModification");
+        btnModification.classList.remove("hidden");
+        filters.classList.add("hidden");
+        editMode.classList.remove("hidden");
+        loginLink.innerHTML = '<button id="btnLogout">logout</button>';
+        logoutUser();
+        openModal();
+    }
+}
+
+/**
+ * Fonction pour logout l'utilisateur
+ */
+
+function logoutUser() {
+    const userId = window.localStorage.getItem("userId");
+    const logoutBtn = document.getElementById("loginLink");
+    logoutBtn.addEventListener("click", () => {
+        if (userId == 1) {
+            localStorage.removeItem("userId");
+            localStorage.removeItem("token");
+            btnModification.classList.add("hidden");
+            filters.classList.remove("hidden");
+            editMode.classList.add("hidden");
+            loginLink.innerHTML = '<a href="login.html">login</a>';
+            filterCategory();
+        }
+    });
+}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// CREATIONS DES BOUTONS DE FILTRES + FILTRAGE /////////////////////////
@@ -85,84 +125,6 @@ function filterCategory() {
                 }
             }
         });
-    });
-}
-
-/////////////////////////////////////////////////////////////////////////
-///////////////////////// FONCTIONS POUR ADMINS /////////////////////////
-/////////////////////////////////////////////////////////////////////////
-
-/**
- * Fonction pour check si l'utilisateur est enregistrer et faire apparaitre differents boutons
- */
-
-function checkUser() {
-    if (window.localStorage.getItem("userId")) {
-        const editMode = document.getElementById("editMode");
-        const filters = document.getElementById("filters");
-        const loginLink = document.getElementById("loginLink");
-        const btnModification = document.getElementById("btnModification");
-        btnModification.classList.remove("hidden");
-        filters.classList.add("hidden");
-        editMode.classList.remove("hidden");
-        loginLink.innerHTML = '<button id="btnLogout">logout</button>';
-        logoutUser();
-        openModal();
-    }
-}
-
-/**
- * Fonction pour logout l'utilisateur
- */
-
-function logoutUser() {
-    const userId = window.localStorage.getItem("userId");
-    const logoutBtn = document.getElementById("loginLink");
-    logoutBtn.addEventListener("click", () => {
-        if (userId == 1) {
-            localStorage.removeItem("userId");
-            localStorage.removeItem("token");
-            btnModification.classList.add("hidden");
-            filters.classList.remove("hidden");
-            editMode.classList.add("hidden");
-            loginLink.innerHTML = '<a href="login.html">login</a>';
-            filterCategory();
-        }
-    });
-}
-
-///////////////////////////////////////////////////////////////////////////////////////
-///////////////////////// OUVERTURE ET FERMETURE DE LA MODALE /////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////
-
-/**
- * Fonction ouverture et fermeture de la modale
- */
-
-function openModal() {
-    const userId = window.localStorage.getItem("userId");
-    const btnModif = document.getElementById("btnModification");
-    const modalPopup = document.getElementById("modalBackground");
-    const btnFermeture1 = document.getElementById("btnFermeture1");
-    const btnFermeture2 = document.getElementById("btnFermeture2");
-    const modalContent = document.getElementById("modalContent");
-    const modalAjoutPhoto = document.getElementById("modalAjoutPhoto");
-
-    btnModif.addEventListener("click", () => {
-        if (userId == 1) {
-            modalPopup.classList.remove("hidden");
-            addPhoto();
-            retourModal();
-            deleteListening();
-        }
-    });
-    btnFermeture1.addEventListener("click", () => {
-        modalPopup.classList.add("hidden");
-    });
-    btnFermeture2.addEventListener("click", () => {
-        modalPopup.classList.add("hidden");
-        modalContent.classList.remove("hidden");
-        modalAjoutPhoto.classList.add("hidden");
     });
 }
 
@@ -218,6 +180,41 @@ function showImagesModal(data) {
         figure.appendChild(trashbin);
         figure.appendChild(img);
     }
+}
+
+///////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// OUVERTURE ET FERMETURE DE LA MODALE /////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * Fonction ouverture et fermeture de la modale
+ */
+
+function openModal() {
+    const userId = window.localStorage.getItem("userId");
+    const btnModif = document.getElementById("btnModification");
+    const modalPopup = document.getElementById("modalBackground");
+    const btnFermeture1 = document.getElementById("btnFermeture1");
+    const btnFermeture2 = document.getElementById("btnFermeture2");
+    const modalContent = document.getElementById("modalContent");
+    const modalAjoutPhoto = document.getElementById("modalAjoutPhoto");
+
+    btnModif.addEventListener("click", () => {
+        if (userId == 1) {
+            modalPopup.classList.remove("hidden");
+            addPhoto();
+            retourModal();
+            deleteListening();
+        }
+    });
+    btnFermeture1.addEventListener("click", () => {
+        modalPopup.classList.add("hidden");
+    });
+    btnFermeture2.addEventListener("click", () => {
+        modalPopup.classList.add("hidden");
+        modalContent.classList.remove("hidden");
+        modalAjoutPhoto.classList.add("hidden");
+    });
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -470,6 +467,12 @@ async function addProject(event) {
         if (!response.ok) {
             throw new Error();
         } else {
+            // Ajout dynamique aux galleries Home et Modal
+            let newObject = [];
+            newObject.push(await response.json());
+            showImages(newObject);
+            showImagesModal(newObject);
+
             // Suppression preview
             const previewImage = document.getElementById("previewImage");
             previewImage.src = "#";
@@ -481,24 +484,9 @@ async function addProject(event) {
             const form = document.getElementById("formAjoutProjet");
             form.reset();
 
-            //Fermeture modale
+            // Fermeture modale
             const btnFermetureUpload = document.getElementById("btnFermeture2");
             btnFermetureUpload.click();
-
-            // Ajout a l'Array initial
-            let newArray = initialArray.slice();
-            let newObject = await response.json();
-            newArray.push(newObject);
-
-            // Ajout dynamique a la gallerie home
-            let gallery = document.querySelector(".gallery");
-            gallery.innerHTML = "";
-            showImages(newArray);
-
-            // Ajout dynamique a la gallerie modale
-            let modalGallery = document.getElementById("modalGallery");
-            modalGallery.innerHTML = "";
-            showImagesModal(newArray);
         }
     } catch (error) {
         alert(error);
